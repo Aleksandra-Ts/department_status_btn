@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.actions.act_window" id="action_show_dept_statuses">
+            <field name="name">Статусы департамента</field>
+            <field name="res_model">hr.employee.status</field>
+            <field name="domain">[['department_id','=', active_id]]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+        
+        <record model="ir.ui.view" id="hr_department_form_inherit">
+            <field name="name">hr.department.form</field>
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.hr_department_view_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='o_kanban_card_lower_content']" position="inside">
+                    <button name="%(department_status_btn.action_show_dept_statuses)d" class="btn btn-primary" type="action" context="{'active_id': company_id}">
+                        <field name="total_status" modifiers="{&quot;readonly&quot;: true}"/> Статусы департамента
+                    </button>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
